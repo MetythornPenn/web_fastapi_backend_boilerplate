@@ -12,13 +12,15 @@ from sqlalchemy.orm import Session
 from database import SessionLocal, engine
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import datetime, timedelta
-from jose import jwt, JWTError
+# from jose import jwt, JWTError
+import jwt
+
 
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 
-SECRET_KEY = "KlgH6AzYDeZeGwD288to79I3vTHT8wp7"
+SECRET_KEY = "8335daacf40ccd34bee84f5c88acad25dd25496e83542a08d98a88463b548b05"
 ALGORITHM = "HS256"
 
 templates = Jinja2Templates(directory="templates")
@@ -77,6 +79,8 @@ def authenticate_user(username: str, password: str, db):
     return user
 
 
+# import jwt
+
 def create_access_token(username: str, user_id: int,
                         expires_delta: Optional[timedelta] = None):
 
@@ -88,9 +92,11 @@ def create_access_token(username: str, user_id: int,
     encode.update({"exp": expire})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGORITHM)
 
+    # return jwt( SECRET_KEY, algorithm=ALGORITHM)
+
 
 async def get_current_user(request: Request):
-    try:
+    # try:
         token = request.cookies.get("access_token")
         if token is None:
             return None
@@ -100,8 +106,10 @@ async def get_current_user(request: Request):
         if username is None or user_id is None:
             logout(request)
         return {"username": username, "id": user_id}
-    except JWTError:
-        raise HTTPException(status_code=404, detail="Not found")
+    # except JWTError:
+    #     raise HTTPException(status_code=404, detail="Not found")
+    
+    
 
 
 @router.post("/token")

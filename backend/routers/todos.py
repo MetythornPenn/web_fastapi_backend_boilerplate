@@ -1,5 +1,5 @@
 import sys
-sys.path.append("..")
+# sys.path.append("..")
 
 from starlette import status
 from starlette.responses import RedirectResponse
