@@ -20,7 +20,7 @@ from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 
 
-SECRET_KEY = "8335daacf40ccd34bee84f5c88acad25dd25496e83542a08d98a88463b548b05"
+SECRET_KEY = "dd4175ded672030a9c59993a2a4005da668e4e037da2f3a2d406bdc479c9c9b9"
 ALGORITHM = "HS256"
 
 templates = Jinja2Templates(directory="templates")

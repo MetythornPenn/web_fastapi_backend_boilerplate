@@ -1,19 +1,26 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
+from starlette.staticfiles import StaticFiles
 
-import models
-# from models import auth, todos
+from routers import auth, todos
+# import models.models
+from models.models import Base
 from db.database import engine
-from routers import auth, todos, admin, users
+
+# --------------------------------------
 
 app = FastAPI()
 
-models.Base.metadata.create_all(bind=engine)
+Base.metadata.create_all(bind=engine)
+
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+# ------------- router -------------------
 
 app.include_router(auth.router)
 app.include_router(todos.router)
-app.include_router(admin.router)
-app.include_router(users.router)
+
     
-    
+
     
     
